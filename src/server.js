@@ -51,7 +51,6 @@ export const setupServer = () => {
     });
   });
 
-
   app.use((req, res, next) => {
     const url = req.url;
     res.status(STATUS_NOT_FOUND).json({
@@ -60,7 +59,8 @@ export const setupServer = () => {
     });
   });
 
-  app.listen(PORT, () => {
+ 
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on PORT: ${PORT}`);
   });
 };
