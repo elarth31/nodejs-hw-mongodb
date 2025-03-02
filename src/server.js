@@ -26,12 +26,7 @@ export const setupServer = () => {
 
   app.use(errorHandler);
 
-  app.listen(PORT, (err) => {
-  if (err) {
-    console.error('Error starting server:', err);
-    process.exit(1);
-  }
-  console.log(`Server is running on PORT: ${PORT}`);
-});
-
+  app.listen(PORT, () => {
+    console.log(`Server is running on PORT: ${PORT}`);
+  });
 };
