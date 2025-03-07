@@ -1,29 +1,50 @@
-import { Router } from 'express';
+import express from 'express'; 
+import { Router } from 'express'; 
 import {
-    createContactController,
-    deleteContactController,
-    getContactByIdController,
-    getContactsController,
-    upsertUserController,
+  createContactController,
+  deleteContactController,
+  getContactByIdController,
+  getContactsController,
+  upsertUserController,
 } from '../controllers/contacts.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import {
+  createContactSchema,
+  updateContactSchema,
+} from '../validation/contacts.js';
+import { isValidId } from '../middlewares/isValidId.js';
+
+const contactsRouter = Router();
 
 
-const contactsRoutes = Router();
+contactsRouter.use(express.json()); 
 
-// Получить все контакты
-contactsRoutes.get('/contacts', ctrlWrapper(getContactsController));
+contactsRouter.get('/', ctrlWrapper(getContactsController));
 
-// Получить контакт по ID
-contactsRoutes.get('/contacts/:contactId', ctrlWrapper(getContactByIdController));
+contactsRouter.get(
+  '/:contactId',
+  isValidId('contactId'),
+  ctrlWrapper(getContactByIdController),
+);
 
-// Создать новый контакт
-contactsRoutes.post('/contacts', ctrlWrapper(createContactController));
+contactsRouter.post(
+  '/',
+  validateBody(createContactSchema),
+  ctrlWrapper(createContactController),
+);
 
-// Обновить контакт (PATCH)
-contactsRoutes.patch('/contacts/:contactId', ctrlWrapper(upsertUserController));
+contactsRouter.patch(
+  '/:contactId',
+  isValidId('contactId'),
+  validateBody(updateContactSchema),
+  ctrlWrapper(upsertUserController),
+);
 
-// Удалить контакт
-contactsRoutes.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
+contactsRouter.delete(
+  '/:contactId',
+  isValidId('contactId'),
+  ctrlWrapper(deleteContactController),
+);
 
-export default contactsRoutes;
+export default contactsRouter;
