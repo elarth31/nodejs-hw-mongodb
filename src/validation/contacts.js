@@ -41,7 +41,7 @@ export const createContactSchema = Joi.object({
     .max(MAX_LENGTH)
     .email({ tlds: { allow: false } })
     .messages(createEmailMessages()),
-  isFavorite: Joi.boolean()
+  isFavourite: Joi.boolean()
     .default(false)
     .messages(createBooleanMessages()),
   contactType: Joi.string()
@@ -71,7 +71,7 @@ export const updateContactSchema = Joi.object({
     .max(MAX_LENGTH)
     .email({ tlds: { allow: false } })
     .messages(createEmailMessages()),
-  isFavorite: Joi.boolean()
+  isFavourite: Joi.boolean()
     .default(false)
     .messages(createBooleanMessages()),
   contactType: Joi.string()

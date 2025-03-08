@@ -5,7 +5,7 @@ const KEY_OF_CONTACT = [
   'name',
   'phoneNumber',
   'email',
-  'isFavorite',
+  'isFavourite',
   'contactType',
   'createdAt',
   'updatedAt',
