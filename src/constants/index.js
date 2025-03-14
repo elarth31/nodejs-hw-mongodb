@@ -1,3 +1,5 @@
+import { randomBytes } from 'crypto';
+
 export const ENV_VARS = {
   PORT: 'PORT',
   MONGODB_USER: 'MONGODB_USER',
@@ -45,4 +47,21 @@ export const DEFAULT_PAGINATION_DATA = {
 export const SORT_ORDER = {
   ASC: 'asc',
   DESC: 'desc',
+};
+
+export const RANDOM_BYTES = 30;
+export const FIFTEEN_MINUTES = 15 * 60 * 1000;
+export const ONE_DAY = 24 * 60 * 60 * 1000;
+export const THIRTY_DAYS = 30 * ONE_DAY;
+
+export const TOKEN_PARAMS = {
+  accessToken: randomBytes(RANDOM_BYTES).toString('base64'),
+  refreshToken: randomBytes(RANDOM_BYTES).toString('base64'),
+  accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+  refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
+};
+
+export const COOKIES = {
+  SESSION_ID: 'sessionId',
+  REFRESH_TOKEN: 'refreshToken',
 };
