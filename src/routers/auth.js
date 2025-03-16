@@ -10,22 +10,25 @@ import {
 } from '../controllers/auth.js';
 
 const authRouter = Router();
+const jsonParser = json();
 
 authRouter.post(
     '/register',
-    json(),
+    jsonParser,
     validateBody(registerUserSchema),
     ctrlWrapper(registerUserController),
 );
 
 authRouter.post(
     '/login',
-    json(),
+    jsonParser,
     validateBody(loginUserSchema),
     ctrlWrapper(loginUserController),
 );
 
 authRouter.post('/refresh', ctrlWrapper(refreshUserSessionController));
+
 authRouter.post('/logout', ctrlWrapper(logoutUserController));
 
 export default authRouter;
+
