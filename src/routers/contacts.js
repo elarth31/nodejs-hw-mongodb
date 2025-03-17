@@ -28,9 +28,7 @@ contactsRouter.get(
 contactsRouter.post(
   '/',
   jsonParser,
-
   validateBody(createContactSchema),
-
   ctrlWrapper(createContactController),
 );
 
