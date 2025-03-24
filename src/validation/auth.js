@@ -1,8 +1,7 @@
 import Joi from 'joi';
 import { JOI_VALIDATION_MSG, VALIDATION_LENGTH } from '../constants/index.js';
-
 const { MIN_LENGTH, MAX_LENGTH } = VALIDATION_LENGTH;
-const { MIN, MAX, STRING, EMAIL } = JOI_VALIDATION_MSG;
+const { MIN, MAX, STRING, EMAIL, REQUIRED } = JOI_VALIDATION_MSG;
 
 export const registerUserSchema = Joi.object({
   name: Joi.string().min(MIN_LENGTH).max(MAX_LENGTH).required().messages({
@@ -11,24 +10,64 @@ export const registerUserSchema = Joi.object({
     'string.max': MAX,
   }),
   email: Joi.string()
+    .min(MIN_LENGTH)
+    .max(MAX_LENGTH)
     .email({ tlds: { allow: false } })
     .required()
     .messages({
       'string.base': STRING,
+      'string.min': MIN,
+      'string.max': MAX,
       'string.email': EMAIL,
     }),
-  password: Joi.string().min(6).max(30).required().messages({
-    'string.min': 'Password must be at least 6 characters long',
-    'string.max': 'Password must be at most 30 characters long',
+  password: Joi.string().min(MIN_LENGTH).max(MAX_LENGTH).required().messages({
+    'string.base': STRING,
+    'string.min': MIN,
+    'string.max': MAX,
   }),
 });
 
 export const loginUserSchema = Joi.object({
-  email: Joi.string().email({ tlds: { allow: false } }).required().messages({
-    'string.base': STRING,
-    'string.email': EMAIL,
+  email: Joi.string()
+    .min(MIN_LENGTH)
+    .max(MAX_LENGTH)
+    .email({ tlds: { allow: false } })
+    .required()
+    .messages({
+      'string.base': STRING,
+      'string.min': MIN,
+      'string.max': MAX,
+      'string.email': EMAIL,
+    }),
+  password: Joi.string().min(MIN_LENGTH).max(MAX_LENGTH).required().messages({
+    'string.min': MIN,
+    'string.max': MAX,
   }),
-  password: Joi.string().required().messages({
-    'string.base': 'Password is required',
+});
+
+export const sendResetEmailSchema = Joi.object({
+  email: Joi.string()
+    .min(MIN_LENGTH)
+    .max(100)
+    .email({ tlds: { allow: false } })
+    .required()
+    .messages({
+      'string.base': STRING,
+      'string.min': MIN,
+      'string.max': MAX,
+      'string.email': EMAIL,
+    }),
+});
+
+export const resetPasswordSchema = Joi.object({
+  token: Joi.string().required().messages({
+    'string.base': STRING,
+    'any.required': REQUIRED,
+  }),
+  password: Joi.string().min(MIN_LENGTH).max(MAX_LENGTH).required().messages({
+    'string.base': STRING,
+    'string.min': MIN,
+    'string.max': MAX,
+    'any.required': REQUIRED,
   }),
 });
