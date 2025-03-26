@@ -29,8 +29,8 @@ export const registerUserSchema = Joi.object({
 
 export const loginUserSchema = Joi.object({
   email: Joi.string()
-    .min(MIN_LENGTH)
-    .max(MAX_LENGTH)
+    .min(5)
+    .max(50)
     .email({ tlds: { allow: false } })
     .required()
     .messages({
