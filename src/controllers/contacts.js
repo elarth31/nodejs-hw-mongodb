@@ -99,7 +99,7 @@ export const upsertUserController = async (req, res, next) => {
   res.status(status).json({
     status,
     message: 'Successfully patched a contact!',
-    data: result,
+    ...result,
   });
 };
 
