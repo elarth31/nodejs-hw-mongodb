@@ -10,7 +10,7 @@ console.log("🔑 SMTP Password:", env(SMTP_PASSWORD));
 const transporter = nodemailer.createTransport({
   host: env(SMTP_HOST),
   port: Number(env(SMTP_PORT)),
-  secure: false, // АБО true, якщо використовуєте 465
+  secure: false,
   auth: {
     user: env(SMTP_USER),
     pass: env(SMTP_PASSWORD),
@@ -20,8 +20,8 @@ const transporter = nodemailer.createTransport({
 export const sendEmail = async ({ to, subject, html }) => {
   try {
     const info = await transporter.sendMail({
-      from: env(SMTP_FROM), // Відправник (що дала ментор)
-      to, // Отримувач (ваша пошта)
+      from: env(SMTP_FROM), 
+      to, 
       subject,
       html,
     });
