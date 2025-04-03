@@ -16,7 +16,7 @@ tags:
 servers:
   - url: http://localhost:3000
     description: Local development server
-  - url: https://nodejs-hw-mongodb-7-wamq.onrender.com
+  - url: https://nodejs-hw-mongodb-8-4cjm.onrender.com
     description: Production server
 
 paths:
